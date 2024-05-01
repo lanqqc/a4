@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Regions Dashboard</title>
+    <!-- Dodanie biblioteki Plotly -->
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+</head>
+<body>
+    <h2>Coffee Regions Dashboard</h2>
+    <div id="barChart" style="width: 50%; display: inline-block;"></div>
+    <div id="pieChart" style="width: 50%; display: inline-block;"></div>
+
+    <?php
+    // Dane dotyczące najlepszych regionów dla kawy (można pobrać z bazy danych)
+    $regions = array(
+        "Ethiopia" => 9.5,
+        "Colombia" => 9.3,
+        "Costa Rica" => 9.2,
+        "Guatemala" => 9.0,
+        "Kenya" => 8.9
+    );
+
+    // Przygotowanie danych do wykresów
+    $regionNames = array_keys($regions);
+    $ratings = array_values($regions);
+
+    // Utworzenie danych dla wykresu słupkowego
+    $barData = array(
+        "x" => $regionNames,
+        "y" => $ratings,
+        "type" => "bar"
+    );
+
+    // Utworzenie danych dla wykresu kołowego
+    $pieData = array(
+        "labels" => $regionNames,
+        "values" => $ratings,
+        "type" => "pie"
+    );
+
+    // Wyświetlenie wykresu słupkowego
+    echo "<script>Plotly.newPlot('barChart', [" . json_encode($barData) . "]);</script>";
+
+    // Wyświetlenie wykresu kołowego
+    echo "<script>Plotly.newPlot('pieChart', [" . json_encode($pieData) . "]);</script>";
+    ?>
+</body>
+</html>
